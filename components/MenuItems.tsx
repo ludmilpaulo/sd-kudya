@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 //import { foods } from '../data/foodsData'
-import tailwind from 'tailwind-react-native-classnames';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCartItems, updateBusket } from '../redux/slices/basketSlice';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import colors from '../configs/colors';
+import tailwind from "tailwind-react-native-classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import colors from "../configs/colors";
 
 const MenuItems = ({ resId, food, resName, resImage, foods }) => {
   const setTheQuantity = () => {
- 
     const resIndex = cartItems.findIndex((item) => item.resName === resName);
 
     if (resIndex >= 0) {
@@ -17,10 +16,10 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
         (item) => item.id === food.id
       );
       if (menuIndex >= 0) {
-        console.log("Menu Index => ",menuIndex);
+        console.log("Menu Index => ", menuIndex);
         const menuItem = cartItems[resIndex].foods[menuIndex];
-        console.log("Menu Item => ",menuItem);
-        setQty(menuItem.quantity)
+        console.log("Menu Item => ", menuItem);
+        setQty(menuItem.quantity);
       }
     }
   };
@@ -34,7 +33,7 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
   const dispatch = useDispatch();
 
   function quantityUp() {
-      setQty(qty + 1);
+    setQty(qty + 1);
   }
 
   function quantityDown() {
@@ -105,7 +104,8 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
     <>
       <View style={tailwind`mt-5 mb-12`}>
         <View
-          style={tailwind`mb-3 flex-row justify-between items-center pb-3 border-b border-gray-100`}>
+          style={tailwind`mb-3 flex-row justify-between items-center pb-3 border-b border-gray-100`}
+        >
           <View style={tailwind`flex-1 pr-3 flex-row items-center`}>
             {match(food.id) ? (
               <BouncyCheckbox
@@ -125,7 +125,8 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
                 style={[
                   tailwind`text-gray-900 font-bold mb-1`,
                   { fontSize: 16 },
-                ]}>
+                ]}
+              >
                 {food.name}
               </Text>
               <Text style={tailwind`text-gray-800 text-xs`}>
@@ -143,30 +144,33 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
                 borderColor: colors.gray,
                 width: 96,
                 height: 35,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <TouchableOpacity
                 style={{
                   width: 32,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                onPress={() => quantityDown()}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>-</Text>
+                onPress={() => quantityDown()}
+              >
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>-</Text>
               </TouchableOpacity>
 
-              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{qty}</Text>
+              <Text style={{ fontSize: 16, fontWeight: "bold" }}>{qty}</Text>
 
               <TouchableOpacity
                 style={{
                   width: 32,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                onPress={() => quantityUp()}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>+</Text>
+                onPress={() => quantityUp()}
+              >
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>+</Text>
               </TouchableOpacity>
             </View>
           </View>

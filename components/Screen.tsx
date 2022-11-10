@@ -2,7 +2,13 @@ import React from "react";
 import { SafeAreaView, StyleSheet, View, ImageBackground } from "react-native";
 import Constants from "expo-constants";
 
-export default function Screen({ children, style }:{children:any,style:any}) {
+export default function Screen({
+  children,
+  style,
+}: {
+  children: any;
+  style: any;
+}) {
   return (
     <SafeAreaView style={[styles.container, style]}>
       <ImageBackground
