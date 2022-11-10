@@ -43,8 +43,8 @@ const HomeScreen = () => {
 
 
   return (
-    <Screen style={tailwind`bg-white flex-1`}>
-    <HeaderTabs />
+    <Screen style={tailwind` flex-1`}>
+
     <View style={tailwind`mt-2 mx-4 mb-1 relative justify-center`}>
             <Ionicons name="search-sharp" size={20} color="#B1B1B3" style={tailwind`absolute left-4 z-10 self-center`} />
             <TextInput style={[tailwind`rounded-full py-2 px-5 pl-10 bg-gray-100`, styles.input]}
@@ -55,7 +55,7 @@ const HomeScreen = () => {
     <Categories />
 
     <ScrollView style={tailwind`flex-1`} showsVerticalScrollIndicator={false}>
-                <Categories />
+              
                 {loading && <ActivityIndicator size="large" color={colors.primary} style={tailwind`mt-2 mb-6`} />}
                 <RestaurantItem restaurantData={filteredDataSource} />
             </ScrollView>

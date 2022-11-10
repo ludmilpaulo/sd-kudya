@@ -25,10 +25,6 @@ export default function HomeNavigator() {
                 headerShown: false
             }}
         >
-         
-            
-            
-          
             <Stack.Screen name="HomeScreen" component={MainTabNavigator} />
             <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
             <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
