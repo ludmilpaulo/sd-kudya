@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -14,12 +14,35 @@ import colors from "../configs/colors";
 import HeaderTabs from "../components/HeaderTabs";
 import Categories from "../components/Categories";
 
+
 const HomeScreen = () => {
+  const [restaurantData, setRestaurantData] = useState([] as any[]);
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState([] as any[]);
   const [masterDataSource, setMasterDataSource] = useState([] as any[]);
   const [activeTab, setActiveTab] = useState("Delivery");
   const [loading, setLoading] = useState(false);
+
+  const getRestaurant = async () => {
+    try {
+      fetch("https://www.sunshinedeliver.com/api/customer/restaurants/")
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setRestaurantData(responseJson.restaurants);
+          setFilteredDataSource(responseJson.restaurants);
+          setMasterDataSource(responseJson.restaurants);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    getRestaurant();
+  }, []);
 
   ///******************************Procurar************************* */
   const searchFilterFunction = (text: any) => {

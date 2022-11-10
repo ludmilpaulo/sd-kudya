@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
   Platform,
-  Alert,
+
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import tailwind from "tailwind-react-native-classnames";
@@ -21,7 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import colors from "../configs/colors";
 
-const CheckoutScreen = ({ navigation }) => {
+const CheckoutScreen = ({ navigation } : { navigation:any}) => {
   const [location, setLocation] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
   const [userAddress, setUserAddress] = useState();
@@ -83,7 +83,7 @@ const CheckoutScreen = ({ navigation }) => {
     return { meal_id: id, quantity };
   });
 
-  let resId = allCartItems.map(({ resId }) => {
+  let resId = allCartItems.map(({ resId } : { resId : any }) => {
     return `${resId}`.toString();
   });
   let restaurantId = resId.toString();
@@ -149,6 +149,7 @@ const CheckoutScreen = ({ navigation }) => {
     <>
       <View style={[tailwind`bg-blue-300 relative `, { height: 250 }]}>
         <MapView
+           mapType="satellite"
           provider={PROVIDER_GOOGLE}
           region={initialRegion}
           // ref={mapRef}

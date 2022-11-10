@@ -6,7 +6,7 @@ import AppHead from "../components/AppHead";
 
 import colors from "../configs/colors";
 
-import OrderDetails from "../components/OrderDetaiils";
+import OrderDetails from "../components/OrderDetails";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

@@ -25,19 +25,18 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
-import Geolocation from "react-native-geolocation-service";
 import * as Location from "expo-location";
 import Geocoder from "react-native-geocoding";
 
-const DetailsScreen = (props) => {
+const DetailsScreen = (props:any) => {
   const navigation = useNavigation();
 
   const route = useRoute();
-  const item = route.params.item;
+  const item = route?.params;
 
-  const [foods, setFoods] = useState([{}]);
-  const [categories, setCategories] = useState([{}]);
-  const [quantity, setquantity] = useState(1);
+  const [foods, setFoods] = useState([] as any[]);
+  const [categories, setCategories] = useState([] as any[]);
+
   const [mapActive, setMapActive] = useState(false);
 
   const totalPrice = useSelector(selectTotalPrice);
@@ -46,7 +45,7 @@ const DetailsScreen = (props) => {
   const { restaurantId, image_url, name, address, phone, review_count } =
     props.route.params;
 
-  const [restAddress, setResAddress] = useState(item.address);
+  const [restAddress, setResAddress] = useState(address);
   const [restlongitude, setRestLongitude] = useState(0);
   const [restlatitude, setRestLatitude] = useState(0);
 
@@ -65,14 +64,14 @@ const DetailsScreen = (props) => {
   // Search by address
   Geocoder.from(restAddress)
     .then((json) => {
-      let location = json.results[0].geometry.location;
-      setRestLongitude(location.lng);
-      setRestLatitude(location.lat);
+      let location = json?.results[0].geometry.location;
+      setRestLongitude(location?.lng);
+      setRestLatitude(location?.lat);
     })
     .catch((error) => console.warn(error));
 
-  useEffect(() => {
-    fetch(`https://www.sunshinedeliver.com/api/customer/meals/${item.id}/`)
+ const fetchMeals = ()=>{
+  fetch(`https://www.sunshinedeliver.com/api/customer/meals/${restaurantId}/`)
       .then((response) => response.json())
       .then((responseJson) => {
         setFoods(responseJson.meals);
@@ -81,7 +80,15 @@ const DetailsScreen = (props) => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+
+ }
+    
+
+ useEffect(() => {
+
+  fetchMeals();
+
+  },[]);
 
   return (
     <>
@@ -100,6 +107,7 @@ const DetailsScreen = (props) => {
           )}
         </View>
 
+      
         <ScrollView showsVerticalScrollIndicator={false} style={tailwind`z-20`}>
           <View style={styles.content}>
             <View style={styles.header}>

@@ -7,13 +7,13 @@ import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import colors from "../configs/colors";
 
-const MenuItems = ({ resId, food, resName, resImage, foods }) => {
+const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food:any, resName:any, resImage:any, foods:any }) => {
   const setTheQuantity = () => {
-    const resIndex = cartItems.findIndex((item) => item.resName === resName);
+    const resIndex = cartItems.findIndex((item : any) => item.resName === resName);
 
     if (resIndex >= 0) {
       const menuIndex = cartItems[resIndex].foods.findIndex(
-        (item) => item.id === food.id
+        (item : any) => item.id === food.id
       );
       if (menuIndex >= 0) {
         console.log("Menu Index => ", menuIndex);
@@ -43,10 +43,10 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
   }
 
   const match = (id: any) => {
-    const resIndex = cartItems.findIndex((item) => item.resName === resName);
+    const resIndex = cartItems.findIndex((item : any) => item.resName === resName);
     if (resIndex >= 0) {
       const menuIndex = cartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item : any) => item.id === id
       );
       if (menuIndex >= 0) return true;
       return false;
@@ -55,15 +55,15 @@ const MenuItems = ({ resId, food, resName, resImage, foods }) => {
   };
 
   const handleAddRemove = (id: any) => {
-    const indexFromFood = foods.findIndex((x) => x.id === id);
-    const resIndex = cartItems.findIndex((item) => item.resName === resName);
+    const indexFromFood = foods.findIndex((x:any) => x.id === id);
+    const resIndex = cartItems.findIndex((item:any) => item.resName === resName);
     const foodItem = foods[indexFromFood];
     foodItem.quantity = qty;
     console.log(foodItem);
 
     if (resIndex >= 0) {
       const menuIndex = cartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item:any) => item.id === id
       );
       if (menuIndex >= 0) {
         let oldArrays = [...cartItems];

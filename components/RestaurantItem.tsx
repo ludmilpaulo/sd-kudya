@@ -5,10 +5,10 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const RestaurantItem = ({ restaurantData }) => {
-  const navigation = useNavigation();
+const RestaurantItem = ({ restaurantData } : { restaurantData :any } ) => {
+  const navigation = useNavigation<any>();
 
-  const handlePress = (item) => {
+  const handlePress = (item : any) => {
     navigation.navigate("DetailsScreen", {
       item: item,
       name: item.name,
@@ -21,7 +21,7 @@ const RestaurantItem = ({ restaurantData }) => {
 
   return (
     <View>
-      {restaurantData?.map((item, index) => (
+      {restaurantData?.map((item:any, index:any) => (
         <RestaurantItemCard
           key={index}
           item={item}
@@ -34,7 +34,7 @@ const RestaurantItem = ({ restaurantData }) => {
 
 export default RestaurantItem;
 
-const RestaurantItemCard = ({ item, onPress }) => {
+const RestaurantItemCard = ({ item, onPress } : { item: any, onPress:any }) => {
   const [loved, setLoved] = useState(false);
 
   return (

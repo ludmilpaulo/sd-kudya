@@ -21,8 +21,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 
-const OrderDetails = ({ data, driver, order, resData }) => {
-  const navigation = useNavigation();
+const OrderDetails = ({ data, driver, order, resData } : { data: any, driver:any, order:any, resData:any }) => {
+  const navigation = useNavigation<any>();
 
   const [driver_avatar, setDriver_avatar] = useState("");
   const [driver_address, setDriver_address] = useState("");
@@ -43,7 +43,7 @@ const OrderDetails = ({ data, driver, order, resData }) => {
   const [order_name, setOrder_name] = useState("");
   const [order_price, setOrder_price] = useState("");
 
-  const driverDetais = async () => {
+  const driverDetails = async () => {
     const url = "https://www.sunshinedeliver.com";
 
     if (driver_avatar == null) {
@@ -87,7 +87,7 @@ const OrderDetails = ({ data, driver, order, resData }) => {
   };
 
   useEffect(() => {
-    driverDetais();
+    driverDetails();
   }, []);
 
   const pressCall = () => {

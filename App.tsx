@@ -1,12 +1,19 @@
-import React from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-import AppNavigator from "./navigation/AppNavigator";
+import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Platform } from 'react-native'
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import AppNavigator from './navigation/AppNavigator';
+import { AuthProvider } from './redux/AuthContext';
 
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <AppNavigator />
+      <AuthProvider>
+        <Provider store={store}>
+          <AppNavigator />
+        </Provider>
+      </AuthProvider>
     </GestureHandlerRootView>
   );
 }
