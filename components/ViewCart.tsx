@@ -3,8 +3,8 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import tailwind from "tailwind-react-native-classnames";
 
-const ViewCart = ({ total, count }) => {
-  const navigation = useNavigation();
+const ViewCart = ({ total, count } : { total:any, count:any }) => {
+  const navigation = useNavigation<any>();
 
   return (
     <>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
   Platform,
+  ScrollView,
 
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -19,12 +20,18 @@ import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+
+
 import colors from "../configs/colors";
+import Screen from "../components/Screen";
 
 const CheckoutScreen = ({ navigation } : { navigation:any}) => {
   const [location, setLocation] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
-  const [userAddress, setUserAddress] = useState();
+  const [userAddress, setUserAddress] = useState("");
 
   const dispatch = useDispatch();
 
@@ -34,8 +41,7 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
   const [loading, setLoading] = useState(true);
   const [loadingOrder, setLoadingOrder] = useState(false);
 
-  const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
-  const [displayCurrentAddress, setDisplayCurrentAddress] = useState("");
+
 
   const allCartItems = useSelector(selectCartItems);
 
@@ -51,16 +57,17 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
     longitude: longitude,
   };
 
+  console.log('endereco++>', userAddress)
   const userLocation = async () => {
     if (Platform.OS === "android" && !Device.isDevice) {
-      setErrorMsg(
+        alert(
         "Oops, this will not work on Snack in an Android Emulator. Try it on your device!"
       );
       return;
     }
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
+      alert("Permission to access location was denied");
       return;
     }
 
@@ -99,7 +106,7 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
 
   const completeOrder = async () => {
     const value = await AsyncStorage.getItem("authUser");
-    const tokenData = JSON.parse(value || {});
+    const tokenData = Object.assign(value) //JSON.parse(value || {});
     let tokenvalue = tokenData.token;
 
     // if (restaurantId == )
@@ -108,12 +115,12 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
       alert("Por favor Preencha o Endereço de Entrega");
     } else {
       let response = await fetch(
-        "https://www.sunshinedeliver.com/api/customer/order/add/",
+        "https://webhook.site/f3877b1a-5831-48c6-a5f5-e10576341a4d",
         {
           mode: "no-cors",
           method: "POST",
           headers: {
-            Accepet: "applocation/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -149,7 +156,7 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
     <>
       <View style={[tailwind`bg-blue-300 relative `, { height: 250 }]}>
         <MapView
-           mapType="satellite"
+         ///  mapType="satellite"
           provider={PROVIDER_GOOGLE}
           region={initialRegion}
           // ref={mapRef}
@@ -169,119 +176,68 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
         </MapView>
       </View>
 
-      <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          placeholder="Adicione seu endereço"
-          value={userAddress}
-          onChangeText={(text) => setUserAddress(text)}
-          autoCapitalize={"none"}
-        />
+      <Screen style={tailwind`flex-1`}>
+      
+      <GooglePlacesAutocomplete
+        query={{ key: "AIzaSyBBkDvVVuQBVSMOt8wQoc_7E-2bvDh2-nw",
+        language: 'en',
+       }}
+        onPress={(data, details = null) => {
+          console.log(data.description);
+          const city = data.description.split(",")[0];
+          setUserAddress(city);
+        }}
+        placeholder="Digite o Endereço de Entrega"
+        styles={{
+          textInput: {
+            backgroundColor: "#eee",
+            borderRadius: 20,
+            fontWeight: "700",
+            marginTop: 7,
+          },
+          textInputContainer: {
+            backgroundColor: "#eee",
+            borderRadius: 50,
+            flexDirection: "row",
+            alignItems: "center",
+            marginRight: 10,
+          },
+        }}
+        renderLeftButton={() => (
+          <View style={{ marginLeft: 10 }}>
+            <Ionicons name="location-sharp" size={24} />
+          </View>
+        )}
+        renderRightButton={() => (
+          <View
+            style={{
+              flexDirection: "row",
+              marginRight: 8,
+              backgroundColor: "white",
+              padding: 9,
+              borderRadius: 30,
+              alignItems: "center",
+            }}
+          >
+            <AntDesign
+              name="clockcircle"
+              size={11}
+              style={{ marginRight: 6 }}
+            />
+            <Text>Search</Text>
+          </View>
+        )}
+      />
 
-        <TouchableOpacity style={styles.containerbot} onPress={completeOrder}>
-          <Text style={styles.vamosJuntos}>FAÇA SEU PEDIDO </Text>
+        <TouchableOpacity 
+         style={tailwind`h-10 w-full bg-white rounded-full items-center justify-center border border-blue-500 `} 
+          onPress={completeOrder}>
+          <Text>FAÇA SEU PEDIDO </Text>
         </TouchableOpacity>
-      </View>
+      </Screen>
     </>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.white,
-    justifyContent: "center",
-  },
-  wrapper: {
-    paddingHorizontal: 20,
-  },
-  logo: {
-    height: 160,
-    resizeMode: "contain",
-    alignSelf: "center",
-    marginTop: 30,
-  },
-  wellcomeTo: {
-    fontSize: 23,
-    fontWeight: "700",
-    color: colors.secondary,
-    marginTop: 20,
-    textAlign: "center",
-  },
-  brand: {
-    fontSize: 23,
-    color: colors.primary,
-    textAlign: "center",
-    fontWeight: "500",
-  },
-  form: {
-    marginTop: 75,
-  },
-  join: {
-    marginTop: 10,
-    textAlign: "center",
-    color: colors.black,
-  },
-  or: {
-    color: colors.gray,
-    textAlign: "center",
-    marginVertical: 20,
-  },
-  containertest: {
-    position: "relative",
-  },
-  input: {
-    borderColor: colors.medium,
-    backgroundColor: colors.light,
-    borderWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    borderRadius: 10,
-    marginTop: 15,
-  },
-  inputError: {
-    borderColor: colors.denger,
-  },
-  icon: {
-    position: "absolute",
-    right: 15,
-    top: 32,
-  },
-  button: {
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    padding: 15,
-    marginVertical: 5,
-    marginTop: 15,
-  },
-  text: {
-    color: colors.white,
-    fontSize: 18,
-    // textTransform: 'uppercase',
-    fontWeight: "700",
-  },
-
-  containerbot: {
-    backgroundColor: "rgba(0,74,173,1)",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    padding: 15,
-    marginVertical: 5,
-    marginTop: 25,
-  },
-  containertext: {
-    width: 159,
-    height: 32,
-  },
-  vamosJuntos: {
-    color: colors.white,
-    fontSize: 18,
-    // textTransform: 'uppercase',
-    fontWeight: "700",
-  },
-});
 
 export default CheckoutScreen;

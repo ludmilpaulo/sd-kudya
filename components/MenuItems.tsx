@@ -8,6 +8,8 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import colors from "../configs/colors";
 
 const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food:any, resName:any, resImage:any, foods:any }) => {
+
+
   const setTheQuantity = () => {
     const resIndex = cartItems.findIndex((item : any) => item.resName === resName);
 
@@ -27,7 +29,9 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
   useEffect(() => {
     setTheQuantity();
   }, []);
-  const [qty, setQty] = useState(1);
+
+
+  const [qty, setQty] = useState<any>(1);
   const [restaurantId, setRestaurantId] = useState(resId);
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
@@ -59,7 +63,8 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
     const resIndex = cartItems.findIndex((item:any) => item.resName === resName);
     const foodItem = foods[indexFromFood];
     foodItem.quantity = qty;
-    console.log(foodItem);
+    setQty(foodItem.quantity);
+    console.log('foods item',foodItem);
 
     if (resIndex >= 0) {
       const menuIndex = cartItems[resIndex].foods.findIndex(
@@ -74,15 +79,18 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
           ...oldArrays,
           { foods: oldfoods, resName, resImage, resId },
         ];
+        console.log('nova array',newArray)
         dispatch(updateBusket(newArray));
       } else {
         let oldArrays = [...cartItems];
+      
         let newFoodArray = [...oldArrays[resIndex].foods, foodItem];
         oldArrays.splice(resIndex, 1);
         let updatedResArray = [
           ...oldArrays,
           { foods: newFoodArray, resName, resImage, resId },
         ];
+        console.log('updated ', updatedResArray)
         dispatch(updateBusket(updatedResArray));
       }
     } else {
@@ -155,12 +163,17 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+               
                 onPress={() => quantityDown()}
               >
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>-</Text>
               </TouchableOpacity>
 
-              <Text style={{ fontSize: 16, fontWeight: "bold" }}>{qty}</Text>
+              <Text 
+             
+              style={{ fontSize: 16, fontWeight: "bold" }}>
+              {qty}
+              </Text>
 
               <TouchableOpacity
                 style={{

@@ -4,21 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import tailwind from "tailwind-react-native-classnames";
 import { selectCartItems, updateBusket } from "../redux/slices/basketSlice";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import NumberSpinner from "./number-spinner";
 import colors from "../configs/colors";
 
-const CartItems = (props) => {
+const CartItems = () => {
   const all = useSelector(selectCartItems);
 
   let allCartItems = all;
 
   const dispatch = useDispatch();
 
-  const match = (id, resName) => {
-    const resIndex = allCartItems.findIndex((item) => item.resName === resName);
+  const match = (id: any, resName: any) => {
+    const resIndex = allCartItems.findIndex((item : any) => item.resName === resName);
     if (resIndex >= 0) {
       const menuIndex = allCartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item:any) => item.id === id
       );
       if (menuIndex >= 0) return true;
       return false;
@@ -26,12 +25,12 @@ const CartItems = (props) => {
     return false;
   };
 
-  const handleRemove = (id, resName, resImage) => {
-    const resIndex = allCartItems.findIndex((item) => item.resName === resName);
+  const handleRemove = (id: any, resName: any, resImage: any) => {
+    const resIndex = allCartItems.findIndex((item:any) => item.resName === resName);
 
     if (resIndex >= 0) {
       const menuIndex = allCartItems[resIndex].foods.findIndex(
-        (item) => item.id === id
+        (item:any) => item.id === id
       );
       if (menuIndex >= 0) {
         let oldArrays = [...allCartItems];
@@ -56,7 +55,7 @@ const CartItems = (props) => {
           Nenhum item do carrinho!
         </Text>
       )}
-      {allCartItems?.map((item) => (
+      {allCartItems?.map((item : any) => (
         <View key={item.resName} style={tailwind`mb-4`}>
           <View style={tailwind`mb-4 relative justify-center`}>
             <Image
@@ -76,7 +75,7 @@ const CartItems = (props) => {
               {item.resName}
             </Text>
           </View>
-          {item?.foods?.map((food) => (
+          {item?.foods?.map((food : any) => (
             <View
               style={tailwind`mb-3 flex-row justify-between items-center pb-3 border-b border-gray-100`}
               key={food.id}

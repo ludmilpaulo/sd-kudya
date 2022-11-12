@@ -1,21 +1,21 @@
 import { Alert } from "react-native";
 
-export const getAllCartFoods = (items) => {
-  let allFoods = [];
+export const getAllCartFoods = (items: any[]) => {
+  let allFoods: any[] = [];
   const foodsData = items.map((x) => x.foods);
   foodsData.map((food) => {
-    food.map((x) => {
+    food.map((x: any) => {
       allFoods = [...allFoods, x];
     });
   });
   return allFoods;
 };
 
-export const getTotalCartItemPrice = (items) => {
-  let allFoods = [];
+export const getTotalCartItemPrice = (items: any[]) => {
+  let allFoods: any[] = [];
   const foodsData = items.map((x) => x.foods);
   foodsData.map((food) => {
-    food.map((x) => {
+    food.map((x: any) => {
       allFoods = [...allFoods, x];
     });
   });

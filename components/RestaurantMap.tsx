@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import tailwind from "tailwind-react-native-classnames";
-import StreetView from 'react-native-streetview';
 
 
 const RestaurantMap = ({ coordinates, title }) => {

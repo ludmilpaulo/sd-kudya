@@ -15,6 +15,7 @@ import HeaderTabs from "../components/HeaderTabs";
 import Categories from "../components/Categories";
 
 
+
 const HomeScreen = () => {
   const [restaurantData, setRestaurantData] = useState([] as any[]);
   const [search, setSearch] = useState("");
