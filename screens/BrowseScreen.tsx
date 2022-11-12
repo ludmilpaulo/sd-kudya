@@ -28,7 +28,7 @@ import colors from "../configs/colors";
 const BrowseScreen = () => {
   const GOOGLE_MAPS_APIKEY = "AIzaSyBBkDvVVuQBVSMOt8wQoc_7E-2bvDh2-nw";
 
-  const [driverLocation, setDriverLocation] = useState();
+  const [driverLocation, setDriverLocation] = useState<any>();
   const [location, setLocation] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
 

@@ -5,10 +5,10 @@ import tailwind from "tailwind-react-native-classnames";
 import { selectCartItems, selectTotalPrice } from "../redux/slices/basketSlice";
 import { useNavigation } from "@react-navigation/native";
 
-const CheckoutModal = ({ setModalVisible }) => {
+const CheckoutModal = ({ setModalVisible } : { setModalVisible:any }) => {
   const totalPrice = useSelector(selectTotalPrice);
   const allCartItems = useSelector(selectCartItems);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const addOrder = () => {
     setModalVisible(false);
@@ -26,14 +26,13 @@ const CheckoutModal = ({ setModalVisible }) => {
           Detalhes do checkout
         </Text>
         <View style={tailwind`mb-5`}>
-          {allCartItems?.map((item) => (
+          {allCartItems?.map((item:any) => (
             <OrderItem
               key={item.resName}
               name={item.resName}
               value={`${item?.foods
-                .reduce((total, item) => total + item.price, 0)
-                .toFixed(1)}Kz • (${item?.foods?.length})`}
-            />
+                .reduce((total: any, item: any) => total + item.price * item.quantity, 0)
+                .toFixed(1)}Kz • (${item?.foods?.length})`} total={undefined}            />
           ))}
           <OrderItem name="Preço total" value={`${totalPrice}Kz`} total />
         </View>
@@ -50,7 +49,7 @@ const CheckoutModal = ({ setModalVisible }) => {
 
 export default CheckoutModal;
 
-const OrderItem = ({ name, value, total }) => (
+const OrderItem = ({ name, value, total } : { name: any, value: any, total: any }) => (
   <View
     style={tailwind`flex-row justify-between py-3 border-gray-200 items-center ${
       total ? "border-t" : "border-b"

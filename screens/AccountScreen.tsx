@@ -19,7 +19,7 @@ const Account = () => {
   const [userPhone, setUserPhone] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [userId, setUserId] = useState(auth.user_id);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const url = "https://www.sunshinedeliver.com";
 
@@ -130,7 +130,7 @@ const Account = () => {
 
 export default Account;
 
-const SavedPlaces = ({ title, text, Icon }) => (
+const SavedPlaces = ({ title, text, Icon }: { title: any, text: any, Icon: any }) => (
   <TouchableOpacity
     style={tailwind`flex-row items-center my-3`}
     Press={() => editProfile()}

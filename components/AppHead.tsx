@@ -4,8 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import colors from "../configs/colors";
 import { useNavigation } from "@react-navigation/native";
 
-function AppHead({ title, icon = null }) {
+function AppHead({ title, icon=null } : { title:any, icon:any }) {
   const navigation = useNavigation();
+ // let icon : null;
 
   return (
     <View style={styles.topBar}>

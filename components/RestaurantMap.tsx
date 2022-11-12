@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import tailwind from "tailwind-react-native-classnames";
 
 
-const RestaurantMap = ({ coordinates, title }) => {
+const RestaurantMap = ({ coordinates, title } : { coordinates:any, title:any }) => {
   const mapRef = useRef(null);
 
   return (
