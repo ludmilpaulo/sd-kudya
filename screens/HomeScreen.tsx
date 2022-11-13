@@ -33,8 +33,10 @@ const HomeScreen = () => {
           setFilteredDataSource(responseJson.restaurants);
           setMasterDataSource(responseJson.restaurants);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(function(error) {
+          console.log('There has been a problem with your fetch operation: ' + error.message);
+          // ADD THIS THROW error
+           throw error;
         });
     } catch (e) {
       alert(e);
@@ -43,7 +45,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     getRestaurant();
-  }, []);
+  }, [restaurantData]);
 
   ///******************************Procurar************************* */
   const searchFilterFunction = (text: any) => {

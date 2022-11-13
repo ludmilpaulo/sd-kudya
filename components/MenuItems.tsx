@@ -9,6 +9,10 @@ import colors from "../configs/colors";
 
 const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food:any, resName:any, resImage:any, foods:any }) => {
 
+  const [qty, setQty] = useState<any>(1);
+  const [restaurantId, setRestaurantId] = useState(resId);
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
   const setTheQuantity = () => {
     const resIndex = cartItems.findIndex((item : any) => item.resName === resName);
@@ -31,18 +35,17 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
   }, []);
 
 
-  const [qty, setQty] = useState<any>(1);
-  const [restaurantId, setRestaurantId] = useState(resId);
-  const cartItems = useSelector(selectCartItems);
-  const dispatch = useDispatch();
+  
 
   function quantityUp() {
     setQty(qty + 1);
+   //setTheQuantity();
   }
 
   function quantityDown() {
     if (qty != 1) {
       setQty(qty - 1);
+    // setTheQuantity();
     }
   }
 
@@ -59,11 +62,15 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
   };
 
   const handleAddRemove = (id: any) => {
+    console.log("quatidde==>", qty) 
+
+  
+
     const indexFromFood = foods.findIndex((x:any) => x.id === id);
     const resIndex = cartItems.findIndex((item:any) => item.resName === resName);
     const foodItem = foods[indexFromFood];
     foodItem.quantity = qty;
-    setQty(foodItem.quantity);
+    //setQty(foodItem.quantity);
     console.log('foods item',foodItem);
 
     if (resIndex >= 0) {
@@ -84,8 +91,9 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
       } else {
         let oldArrays = [...cartItems];
       
-        let newFoodArray = [...oldArrays[resIndex].foods, foodItem];
+        let newFoodArray = [...oldArrays[resIndex].foods, foodItem ];
         oldArrays.splice(resIndex, 1);
+        foodItem.quantity = qty;
         let updatedResArray = [
           ...oldArrays,
           { foods: newFoodArray, resName, resImage, resId },
@@ -95,10 +103,11 @@ const MenuItems = ({ resId, food, resName, resImage, foods } : { resId:any, food
       }
     } else {
       let oldArrays = [...cartItems];
+      foodItem.quantity = qty;
       let newResFoodArray = [
         ...oldArrays,
         {
-          foods: [{ ...foodItem }],
+          foods: [{ ...foodItem}],
           resName,
           resImage,
           resId,

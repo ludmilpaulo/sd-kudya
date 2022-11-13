@@ -56,6 +56,7 @@ const DetailsScreen = (props:any) => {
 
   ///********************************* Address **************************************************/////
 
+/**
   // Initialize the module (needs to be done only once)
   Geocoder.init("AIzaSyBBkDvVVuQBVSMOt8wQoc_7E-2bvDh2-nw"); // use a valid API key
   // With more options
@@ -69,6 +70,8 @@ const DetailsScreen = (props:any) => {
       setRestLatitude(location?.lat);
     })
     .catch((error) => console.warn(error));
+
+    **/
 
  const fetchMeals = ()=>{
   fetch(`https://www.sunshinedeliver.com/api/customer/meals/${restaurantId}/`)
