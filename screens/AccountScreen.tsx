@@ -18,7 +18,7 @@ const Account = () => {
   const [userPhoto, setUserPhoto] = useState("");
   const [userPhone, setUserPhone] = useState("");
   const [userAddress, setUserAddress] = useState("");
-  const [userId, setUserId] = useState(auth.user_id);
+  const [userId, setUserId] = useState<any>();
   const navigation = useNavigation<any>();
 
   const url = "https://www.sunshinedeliver.com";
@@ -55,9 +55,9 @@ const Account = () => {
 
   useEffect(() => {
     pickUser();
-    // setUserId(auth.user_id);
+    setUserId(auth.user_id);
     setUsername(auth.username);
-  }, []);
+  }, [userPhone, userAddress, userId]);
 
   const editProfile = async () => {
     try {
@@ -85,7 +85,7 @@ const Account = () => {
   };
 
   return (
-    <Screen style={tailwind`flex-1 bg-white`}>
+    <Screen style={tailwind`flex-1`}>
       <AppHead title={`Conta`} icon="settings-outline" />
       <View style={tailwind`justify-center items-center`}>
         <View style={tailwind`rounded-full overflow-hidden w-48 h-48 mt-4`}>
@@ -133,7 +133,7 @@ export default Account;
 const SavedPlaces = ({ title, text, Icon }: { title: any, text: any, Icon: any }) => (
   <TouchableOpacity
     style={tailwind`flex-row items-center my-3`}
-    Press={() => editProfile()}
+    onPress={() => editProfile()}
   >
     <Icon />
     <View style={tailwind`ml-5`}>

@@ -19,7 +19,7 @@ const CartScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <Screen style={tailwind`flex-1 bg-white`}>
+    <Screen style={tailwind`flex-1`}>
       <AppHead
         title={`Sua Bandeja (${getAllItems.length})`}
         icon="basket-outline"

@@ -40,7 +40,7 @@ const UserProfile = () => {
 
   const [Type, setType] = useState("");
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
 
@@ -160,7 +160,7 @@ const UserProfile = () => {
 
   return (
     <>
-      <Screen style={tailwind`flex-1 bg-white`}>
+      <Screen style={tailwind`flex-1 `}>
         <View style={styles.wrapper}>
           <View style={tailwind`justify-center items-center`}>
             <View style={tailwind`rounded-full overflow-hidden w-48 h-48 mt-4`}>

@@ -106,7 +106,7 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
 
   const completeOrder = async () => {
     const value = await AsyncStorage.getItem("authUser");
-    const tokenData = Object.assign(value) //JSON.parse(value || {});
+    const tokenData = JSON.parse(value || {});
     let tokenvalue = tokenData.token;
 
     // if (restaurantId == )
@@ -117,7 +117,7 @@ const CheckoutScreen = ({ navigation } : { navigation:any}) => {
       let response = await fetch(
         "https://webhook.site/f3877b1a-5831-48c6-a5f5-e10576341a4d",
         {
-          mode: "no-cors",
+          //mode: "no-cors",
           method: "POST",
           headers: {
             Accept: "application/json",

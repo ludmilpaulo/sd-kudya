@@ -105,8 +105,8 @@ export default function LoginScreenUser({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
-    justifyContent: "center",
+   // backgroundColor: colors.white,
+    justifyContent: "center"
   },
   wrapper: {
     paddingHorizontal: 20,

@@ -65,7 +65,7 @@ const BrowseScreen = () => {
       2000
     );
     return () => clearInterval(timer);
-  }, [covertDriverLocation]);
+  }, [driverLong, driverlat]);
 
   const getDriverLocation = async () => {
     const value = await AsyncStorage.getItem("authUser");
@@ -127,16 +127,16 @@ const BrowseScreen = () => {
   useEffect(() => {
     const timer = setInterval(() => getDriverLocation(), 2000);
     return () => clearInterval(timer);
-  }, [getDriverLocation]);
+  }, [driverLocation]);
 
   useEffect(() => {
     const timer = setInterval(() => userLocation(), 2000);
     return () => clearInterval(timer);
-  }, [userLocation]);
+  }, [location]);
 
   return (
     <>
-      <Screen style={tailwind`flex-1 bg-white`}>
+      <Screen style={tailwind`flex-1 `}>
         <View style={styles.container}>
           <MapView
             provider={PROVIDER_GOOGLE}
